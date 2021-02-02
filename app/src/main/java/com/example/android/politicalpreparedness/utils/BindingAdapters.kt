@@ -1,10 +1,36 @@
 package com.example.android.politicalpreparedness.utils
 
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.example.android.politicalpreparedness.domain.models.Election
+import com.example.android.politicalpreparedness.presentation.election.adapter.ElectionListAdapter
+import com.example.android.politicalpreparedness.presentation.representative.adapter.RepresentativeListAdapter
+import com.example.android.politicalpreparedness.presentation.representative.model.Representative
+
+@BindingAdapter("fadeVisible")
+fun setFadeVisible(view: View, visible: Boolean? = true){
+    if(view.tag == null){
+        view.tag = true
+        view.visibility = if(visible == true) View.VISIBLE  else View.GONE
+    }
+    else{
+        view.animate().cancel()
+        if(visible == true) {
+            if(view.visibility == View.GONE)
+                view.fadeIn()
+        }
+        else {
+            if(view.visibility == View.VISIBLE)
+                view.fadeOut()
+        }
+    }
+
+}
 
 @BindingAdapter("profileImage")
 fun fetchImage(view: ImageView, src: String?) {
@@ -28,4 +54,23 @@ fun Spinner.setNewValue(value: String?) {
 
 inline fun <reified T> toTypedAdapter(adapter: ArrayAdapter<*>): ArrayAdapter<T>{
     return adapter as ArrayAdapter<T>
+}
+
+@BindingAdapter("followedElectionsList")
+fun bindFollowedElectionList(recyclerView: RecyclerView, followedElectionList: List<Election>?){
+    val adapter: ElectionListAdapter = recyclerView.adapter as ElectionListAdapter
+    adapter.submitList(followedElectionList)
+}
+
+@BindingAdapter("upcomingElectionList")
+fun bindUpcomingElectionList(recyclerView: RecyclerView, upcomingElectionList: List<Election>?){
+    val adapter: ElectionListAdapter = recyclerView.adapter as ElectionListAdapter
+    adapter.submitList(upcomingElectionList)
+}
+
+@BindingAdapter("representativesList")
+fun bindRepresentativesList(recyclerView: RecyclerView, representativesList: List<Representative>){
+    val adapter: RepresentativeListAdapter = recyclerView.adapter as RepresentativeListAdapter
+    adapter.submitList(representativesList)
+
 }
