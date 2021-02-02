@@ -4,33 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     android:label="nav_graph"
-    app:startDestination="@id/launchFragment">
+    app:startDestination="@id/launch_fragment">
 
     <fragment
-        android:id="@+id/launchFragment"
+        android:id="@+id/launch_fragment"
         android:name="com.example.android.politicalpreparedness.presentation.launch.LaunchFragment"
         android:label="fragment_launch"
-        tools:layout="@layout/fragment_launch"/>
+        tools:layout="@layout/fragment_launch">
+        <action
+            android:id="@+id/action_launch_fragment_to_representative_fragment"
+            app:destination="@+id/representative_fragment"/>
+        <action
+            android:id="@+id/action_launch_fragment_to_elections_fragment"
+            app:destination="@+id/elections_fragment"/>
+    </fragment>
 
     <fragment
-        android:id="@+id/representativeFragment"
-        android:name="com.example.android.politicalpreparedness.presentation.representative.DetailFragment"
+        android:id="@+id/representative_fragment"
+        android:name="com.example.android.politicalpreparedness.presentation.representative.RepresentativeFragment"
         android:label="fragment_representative"
-        tools:layout="@layout/fragment_representative"></fragment>
+        tools:layout="@layout/fragment_representative">
+
+    </fragment>
     <fragment
-        android:id="@+id/voterInfoFragment"
+        android:id="@+id/voter_info_fragment"
         android:name="com.example.android.politicalpreparedness.presentation.election.VoterInfoFragment"
         android:label="fragment_voter_info">
         <argument
             android:name="arg_election_id"
-            app:argType="integer" />
+            app:argType="integer"/>
         <argument
             android:name="arg_division"
-            app:argType="com.example.android.politicalpreparedness.network.models.Division" />
+            app:argType="com.example.android.politicalpreparedness.data.network.models.Division" />
     </fragment>
     <fragment
-        android:id="@+id/electionsFragment"
+        android:id="@+id/elections_fragment"
         android:name="com.example.android.politicalpreparedness.presentation.election.ElectionsFragment"
-        android:label="fragment_elections"/>
+        android:label="fragment_elections">
+        <action android:id="@+id/action_elections_fragment_to_voter_info_fragment"
+            app:destination="@id/voter_info_fragment"/>
 
+    </fragment>
 </navigation>

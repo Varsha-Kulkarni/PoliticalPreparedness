@@ -3,5 +3,22 @@
     <string name="app_name">Political Preparedness</string>
 
     <!-- TODO: Add necessary string values -->
-
+    <string name="representatives">Find my Representatives</string>
+    <string name="upcoming">Upcoming Elections</string>
+    <string name="ballot_logo">Ballot Logo</string>
+    <string name="upcoming_header">Upcoming Elections</string>
+    <string name="saved_header">Saved Elections</string>
+    <string name="find_my_representatives">FIND MY REPRESENTATIVES</string>
+    <string name="use_my_location">USE MY LOCATION</string>
+    <string name="my_representatives">My Representatives</string>
+    <string name="representative_search">Representative Search</string>
+    <string name="address_line_1">Address Line 1</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="representative_photo">Representative Photo</string>
+    <string name="browse_link">Browse Link</string>
+    <string name="facebook_link">Facebook Link</string>
+    <string name="twitter_link">Twitter Link</string>
+    <string name="zip">Zip</string>
 </resources>
