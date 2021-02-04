@@ -1,22 +1,31 @@
 package com.example.android.politicalpreparedness.data.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
-import com.example.android.politicalpreparedness.data.network.models.Election
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import com.example.android.politicalpreparedness.data.database.entities.ElectionEntity
 
 @Dao
 interface ElectionDao {
 
-    //TODO: Add insert query
+    @Update
+    suspend fun updateElection(election: ElectionEntity)
 
-    //TODO: Add select all election query
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(vararg electionEntity: ElectionEntity)
 
-    //TODO: Add select single election query
+    @Query("select * from election_table where isFollowed == 1")
+    fun getFollowedElections(): LiveData<List<ElectionEntity>>
 
-    //TODO: Add delete query
+    @Query("Select * from election_table")
+    fun getAllElections(): LiveData<List<ElectionEntity>>
 
-    //TODO: Add clear query
+    @Query("select * from election_table where id = :id")
+    fun getElectionById(id: Int) : LiveData<ElectionEntity>
+
+    @Delete
+    suspend fun deleteElection(election: ElectionEntity)
+
+    @Query("delete from election_table")
+    suspend fun clear()
 
 }
