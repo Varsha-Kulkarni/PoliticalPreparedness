@@ -12,31 +12,4 @@ import com.example.android.politicalpreparedness.data.database.entities.Election
 abstract class ElectionDatabase: RoomDatabase() {
 
     abstract val electionDao: ElectionDao
-
-    companion object {
-
-        @Volatile
-        private var INSTANCE: ElectionDatabase? = null
-
-        fun getInstance(context: Context): ElectionDatabase {
-            synchronized(this) {
-                var instance = INSTANCE
-                if (instance == null) {
-                    instance = Room.databaseBuilder(
-                            context.applicationContext,
-                            ElectionDatabase::class.java,
-                            "election_database"
-                    )
-                            .fallbackToDestructiveMigration()
-                            .build()
-
-                    INSTANCE = instance
-                }
-
-                return instance
-            }
-        }
-
-    }
-
 }

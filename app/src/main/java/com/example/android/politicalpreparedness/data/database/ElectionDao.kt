@@ -13,7 +13,7 @@ interface ElectionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg electionEntity: ElectionEntity)
 
-    @Query("select * from election_table where isFollowed == 1")
+    @Query("select * from election_table where isFollowed = 1")
     fun getFollowedElections(): LiveData<List<ElectionEntity>>
 
     @Query("Select * from election_table")

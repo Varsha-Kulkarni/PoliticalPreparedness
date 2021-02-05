@@ -2,7 +2,7 @@ package com.example.android.politicalpreparedness
 
 import android.app.Application
 import androidx.work.*
-import com.example.android.politicalpreparedness.data.ElectionsDataSource
+import com.example.android.politicalpreparedness.data.CivicsDataSource
 import com.example.android.politicalpreparedness.data.database.LocalDB
 import com.example.android.politicalpreparedness.data.repository.CivicsRepository
 import com.example.android.politicalpreparedness.data.worker.RefreshDataWorker
@@ -40,21 +40,24 @@ class MyApp : Application() {
             viewModel {
                 ElectionsViewModel(
                         get(),
-                        get() as ElectionsDataSource
+                        get() as CivicsDataSource
                 )
             }
             //Declare singleton definitions to be later injected using by inject()
             single {
                 //This view model is declared singleton to be used across multiple fragments
-                RepresentativeViewModel(get())
+                RepresentativeViewModel(
+                        get(),
+                        get() as CivicsDataSource)
             }
 
             single {
                 //This view model is declared singleton to be used across multiple fragments
-                VoterInfoViewModel(get())
+                VoterInfoViewModel(get(),
+                get() as CivicsDataSource)
             }
 
-            single { CivicsRepository(get()) as ElectionsDataSource }
+            single { CivicsRepository(get()) as CivicsDataSource }
             single { LocalDB.createElectionsDao(this@MyApp)}
         }
 
