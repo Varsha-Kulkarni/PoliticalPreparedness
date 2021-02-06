@@ -38,6 +38,6 @@ class ElectionsFragment:  BaseFragment() {
     }
 
     fun navigateToVoterInfo(election: Election){
-        _viewModel.navigationCommand.postValue(NavigationCommand.To(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election.id, election.division)))
+        _viewModel.navigationCommand.postValue(NavigationCommand.To(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election)))
     }
 }
