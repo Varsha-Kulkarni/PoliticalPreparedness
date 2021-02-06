@@ -95,7 +95,7 @@ class CivicsRepository(
             Result.Success(voterInfo)
         }
         catch (exception: Exception){
-            Result.Error("Error getting VoterInfo")
+            Result.Error("${exception.localizedMessage}")
         }
     }
 }
