@@ -1,21 +1,56 @@
 package com.example.android.politicalpreparedness.presentation.election
 
-import androidx.lifecycle.ViewModel
-import com.example.android.politicalpreparedness.data.database.ElectionDao
+import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.data.CivicsDataSource
+import com.example.android.politicalpreparedness.data.network.models.VoterInfoResponse
+import com.example.android.politicalpreparedness.domain.models.Election
+import com.example.android.politicalpreparedness.presentation.base.BaseViewModel
+import kotlinx.coroutines.launch
+import com.example.android.politicalpreparedness.domain.models.Result
+import com.example.android.politicalpreparedness.domain.models.toDatabaseEntity
+import timber.log.Timber
 
-class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
+class VoterInfoViewModel(val app: Application, private val dataSource: CivicsDataSource) : BaseViewModel(app) {
 
-    //TODO: Add live data to hold voter info
+    //live data to hold voter info
+    private val _voterInfo = MutableLiveData<VoterInfoResponse>()
+    val voterInfo : LiveData<VoterInfoResponse>
+    get() = _voterInfo
 
-    //TODO: Add var and methods to populate voter info
+    private var _election = MutableLiveData<Election>()
+    val election: LiveData<Election>
+        get() = _election
 
-    //TODO: Add var and methods to support loading URLs
+    fun getVoterInfo(){
+        viewModelScope.launch {
+            Timber.i("$election.id $election.division")
+            when(val result= dataSource.getVoterInfo(election.value!!)){
+                is Result.Success -> {
+                    _voterInfo.postValue(result.data)
+                }
+                is Result.Error -> {
+                    showSnackBar.postValue("Failed to Parse address, $result.data")
+                }
+            }
+        }
+    }
 
-    //TODO: Add var and methods to save and remove elections to local database
-    //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
+    fun setElection(election: Election){
+        _election.value = election
+    }
 
     /**
      * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
      */
+    fun updateElection(election: Election) {
+        election.isFollowed = !election.isFollowed
+        viewModelScope.launch {
+            dataSource.updateElection(election.toDatabaseEntity())
+            setElection(election)
+        }
+    }
 
 }
