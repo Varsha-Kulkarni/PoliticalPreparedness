@@ -13,10 +13,18 @@
         tools:layout="@layout/fragment_launch">
         <action
             android:id="@+id/action_launch_fragment_to_representative_fragment"
-            app:destination="@+id/representative_fragment"/>
+            app:destination="@+id/representative_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_launch_fragment_to_elections_fragment"
-            app:destination="@+id/elections_fragment"/>
+            app:destination="@+id/elections_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -30,19 +38,21 @@
         android:id="@+id/voter_info_fragment"
         android:name="com.example.android.politicalpreparedness.presentation.election.VoterInfoFragment"
         android:label="fragment_voter_info">
+
         <argument
-            android:name="arg_election_id"
-            app:argType="integer"/>
-        <argument
-            android:name="arg_division"
-            app:argType="com.example.android.politicalpreparedness.data.network.models.Division" />
+            android:name="arg_election"
+            app:argType="com.example.android.politicalpreparedness.domain.models.Election" />
     </fragment>
     <fragment
         android:id="@+id/elections_fragment"
         android:name="com.example.android.politicalpreparedness.presentation.election.ElectionsFragment"
         android:label="fragment_elections">
         <action android:id="@+id/action_elections_fragment_to_voter_info_fragment"
-            app:destination="@id/voter_info_fragment"/>
+            app:destination="@id/voter_info_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
     </fragment>
 </navigation>
