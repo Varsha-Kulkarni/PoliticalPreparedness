@@ -20,5 +20,5 @@ data class ElectionEntity(
         @ColumnInfo(name = "name")val name: String,
         @ColumnInfo(name = "electionDay")val electionDay: Date,
         @Embedded(prefix = "division_") val division: Division,
-        @ColumnInfo(name = "isFollowed")val isFollowed: Boolean = false
+        @ColumnInfo(name = "isFollowed")val isFollowed: Boolean
 ): Parcelable

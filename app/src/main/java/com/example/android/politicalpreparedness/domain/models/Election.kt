@@ -16,7 +16,7 @@ data class Election(
         val name: String,
         val electionDay: Date,
         val division: Division,
-        var isFollowed: Boolean = false): Parcelable
+        var isFollowed: Boolean): Parcelable
 
     fun Election.toDatabaseEntity(): ElectionEntity{
         return ElectionEntity(

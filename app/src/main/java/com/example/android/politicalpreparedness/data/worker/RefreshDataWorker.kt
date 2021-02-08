@@ -16,7 +16,7 @@ class RefreshDataWorker(
         appContext: Context,
         parameters: WorkerParameters): CoroutineWorker(appContext, parameters), KoinComponent {
 
-    val civicsRepository: CivicsRepository by inject()
+    private val civicsRepository: CivicsRepository by inject()
 
     companion object{
         const val WORK_NAME = "RefreshDataWorker"

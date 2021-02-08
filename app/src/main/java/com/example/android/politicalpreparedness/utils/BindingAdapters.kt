@@ -7,13 +7,17 @@ import android.widget.Spinner
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.domain.models.Election
 import com.example.android.politicalpreparedness.presentation.election.adapter.ElectionListAdapter
 import com.example.android.politicalpreparedness.presentation.representative.adapter.RepresentativeListAdapter
 import com.example.android.politicalpreparedness.presentation.representative.model.Representative
+import timber.log.Timber
 
 @BindingAdapter("fadeVisible")
-fun setFadeVisible(view: View, visible: Boolean? = true){
+fun setFadeVisible(view: View, visible: Boolean? = false){
     if(view.tag == null){
         view.tag = true
         view.visibility = if(visible == true) View.VISIBLE  else View.GONE
@@ -37,6 +41,7 @@ fun fetchImage(view: ImageView, src: String?) {
     src?.let {
         val uri = src.toUri().buildUpon().scheme("https").build()
         //TODO: Add Glide call to load image and circle crop - user ic_profile as a placeholder and for errors.
+        Glide.with(view.context).load(uri).placeholder(R.drawable.ic_profile).transform(CircleCrop()).into(view)
     }
 }
 
@@ -69,8 +74,9 @@ fun bindUpcomingElectionList(recyclerView: RecyclerView, upcomingElectionList: L
 }
 
 @BindingAdapter("representativesList")
-fun bindRepresentativesList(recyclerView: RecyclerView, representativesList: List<Representative>){
+fun bindRepresentativesList(recyclerView: RecyclerView, representativesList: List<Representative>?){
     val adapter: RepresentativeListAdapter = recyclerView.adapter as RepresentativeListAdapter
+    Timber.i("$representativesList")
     adapter.submitList(representativesList)
 
 }

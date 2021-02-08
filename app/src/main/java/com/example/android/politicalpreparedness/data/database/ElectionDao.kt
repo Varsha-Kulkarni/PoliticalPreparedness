@@ -10,7 +10,7 @@ interface ElectionDao {
     @Update
     suspend fun updateElection(election: ElectionEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(vararg electionEntity: ElectionEntity)
 
     @Query("select * from election_table where isFollowed = 1")

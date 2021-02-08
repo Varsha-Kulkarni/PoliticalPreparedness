@@ -43,16 +43,15 @@ class MyApp : Application() {
                         get() as CivicsDataSource
                 )
             }
-            //Declare singleton definitions to be later injected using by inject()
-            single {
-                //This view model is declared singleton to be used across multiple fragments
+            //Declare a ViewModel - be later inject into Fragment with dedicated injector using by viewModel()
+            viewModel {
                 RepresentativeViewModel(
                         get(),
                         get() as CivicsDataSource)
             }
 
-            single {
-                //This view model is declared singleton to be used across multiple fragments
+            //Declare a ViewModel - be later inject into Fragment with dedicated injector using by viewModel()
+            viewModel {
                 VoterInfoViewModel(get(),
                 get() as CivicsDataSource)
             }
