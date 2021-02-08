@@ -59,13 +59,5 @@
             app:followedElectionsList="@{electionViewModel.followedElections}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-        <ProgressBar
-            android:id="@+id/pb_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fadeVisible="@{electionViewModel.showLoading.booleanValue()}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_upcoming_header"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
