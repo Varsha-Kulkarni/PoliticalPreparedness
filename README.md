@@ -23,5 +23,11 @@ To get started with this project, simply pull the repository and import the proj
 
 * NOTE: In order for this project to pull data, you will need to add your API Key to the project as a value in the CivicsHttpClient. You can generate an API Key from the [Google Developers Console](https://console.developers.google.com/)
 
+# Screenshots
+
+![alt text](screenshots/screen_1.png)  
+![alt text](screenshots/screen_2.png) 
+![alt text](screenshots/screen_3.png) 
+
 ## Report Issues
 Notice any issues with a repository? Please file a github issue in the repository.
