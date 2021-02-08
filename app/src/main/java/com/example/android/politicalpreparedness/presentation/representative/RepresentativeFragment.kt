@@ -90,12 +90,16 @@ class RepresentativeFragment : BaseFragment() {
                         zip.text.toString()))
             }
 
-            lifecycleOwner?.let { owner ->
-                _viewModel.address.observe(owner, Observer {
-                    Timber.i("$it")
-                    _viewModel.getRepresentatives()
-                })
-            }
+            _viewModel.address.observe(viewLifecycleOwner, Observer {
+                Timber.i("$it")
+                _viewModel.getRepresentatives()
+            })
+
+            _viewModel.showLoading.observe(viewLifecycleOwner, Observer {
+//                it.getContentIfNotHandled()?.let {loading ->
+                    progressBar.visibility = if(it) View.VISIBLE else View.GONE
+//                }
+            })
         }
 
         return binding.root

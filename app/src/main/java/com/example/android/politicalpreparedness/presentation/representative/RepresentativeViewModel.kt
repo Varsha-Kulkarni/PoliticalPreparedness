@@ -9,6 +9,7 @@ import com.example.android.politicalpreparedness.data.network.models.Address
 import com.example.android.politicalpreparedness.domain.models.Result
 import com.example.android.politicalpreparedness.presentation.base.BaseViewModel
 import com.example.android.politicalpreparedness.presentation.representative.model.Representative
+import com.example.android.politicalpreparedness.utils.Event
 import kotlinx.coroutines.launch
 
 
@@ -42,8 +43,12 @@ class RepresentativeViewModel(myApplication: Application, private val civicsData
 
     //function to fetch representatives from API from a provided address
     fun getRepresentatives() {
+//        showLoading.value = Event(true)
+        showLoading.value = true
         viewModelScope.launch {
             val result = civicsDataSource.getRepresentatives(address.value!!)
+//            showLoading.postValue( Event(false))
+            showLoading.value = false
             when (result) {
                 is Result.Success -> {
                     _representatives.postValue(result.data)
