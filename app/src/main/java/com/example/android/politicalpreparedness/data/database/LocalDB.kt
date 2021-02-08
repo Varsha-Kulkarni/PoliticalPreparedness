@@ -15,7 +15,7 @@ object LocalDB {
                 context.applicationContext,
                 ElectionDatabase::class.java,
                 "election_database"
-        ).build().electionDao
+        ).fallbackToDestructiveMigration().build().electionDao
 
     }
 
