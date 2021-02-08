@@ -165,7 +165,7 @@ class RepresentativeFragment : BaseFragment() {
 
                     if (task.isSuccessful) {
 
-                        // Set the map's camera position to the current location of the device.
+                        // Set the current location of the device.
                         lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
                             Timber.d("last  known location $lastKnownLocation")
@@ -201,7 +201,13 @@ class RepresentativeFragment : BaseFragment() {
         val geocoder = Geocoder(context, Locale.getDefault())
         return geocoder.getFromLocation(location.latitude, location.longitude, 1)
                 .map { address ->
-                    Address(address.thoroughfare, address.subThoroughfare, address.locality, address.adminArea, address.postalCode)
+                    if(!address.thoroughfare.isNullOrEmpty() && !address.subThoroughfare.isNullOrEmpty() && !address.locality.isNullOrEmpty() && !address.adminArea.isNullOrEmpty() && !address.postalCode.isNullOrEmpty()) {
+                        Address(address.thoroughfare, address.subThoroughfare, address.locality, address.adminArea, address.postalCode)
+                    }
+                    else{
+                        _viewModel.showSnackBar.value = "Cannot find the accurate location!"
+                        Address("","","","","")
+                    }
                 }
                 .first()
     }
